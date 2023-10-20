@@ -1,0 +1,10 @@
+To run this, install python3 (works at least in python3.8, probably other versions too) and the packages numpy, scipy, scikit-learn, seaborn, tqdm, statsmodels, matplotlib
+
+Install python3 (works at least in python 3.8, probably other versions too). And install python packages:
+python3 -m pip install numpy scipy scikit-learn seaborn tqdm statsmodels matplotlib pandas
+
+python3 ../code/compare_gene_set_to_features.py -i extracellular_matrix_mouse_from_gene_ontology_website.txt -F TATA_INR.txt -o demo_output.txt
+
+This should take 1-2 seconds run time.
+
+Multiple tables can be placed after -F to be run together, and -F can be followed by a gene identifier translation table (ensembl_ids_GRCh38.95.chr.ensembl.txt) in addition to other tables. If possible, use -b followed by a list of all relevant genes, e.g. all expressed genes, or -e followed by expression level per gene in tab-separated format to generate a list of expression-matched genes. 
