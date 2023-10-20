@@ -1,0 +1,11 @@
+### stranded conversion rates
+joblib (v1.0.1)
+pysam (v0.17.0)
+gtfparse(v1.2.1)
+pandas(v1.1.4) (Older versions work as well)
+numpy (v1.19.5) (Older versions work as well)
+scipy (v1.6.3)
+
+### pi_g_inference
+tensorflow (v2.6.0)
+tensorflow_probability (v0.14.0)

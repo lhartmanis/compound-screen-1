@@ -1,0 +1,22 @@
+conversion_count_settings:
+    bam: "" # Path to input bam file. Can be downloaded from ArrayExpress.
+    gtf: "" # Path to GTF file, should be the same as the one used to generate the input bam file
+    name: "my_experiment" # Prefix for file names
+    procs: 30  # Number of concurrent processes
+    cutoff: 100000 # Number of reads per cell to use for calculating cell stats. Default: 100000
+    qual: 30 # Quality cutoff
+    sub: 1.0 # Float for subsampling data
+    bc: "data/indices_used.txt" # Path to list of barcodes to use
+    pc_calc: 'pc' # Compute conversion probabilities. Allowed values are pc or no_pc
+    seq_layout: 'paired_end' # Sequencing layout. Allowed values are single_end or paired_end
+    
+MCMC_runner_settings:
+    num_iters: 10000 # Number of iterations before restarting the inference
+    num_procs: 30 # Number of concurrent processes to use for MCMC inference
+    outfolder: "data" # Path to outfolder
+    max_files: 500000 # Maximum number of files per output folder
+
+cleanup_settings:
+    base_path: "data" # Where the inference data is stored
+    num_procs: 30 # Number of concurrent processes to use for cleanup
+    handle_folders: "remove" # How to handle intermediary folders. Allowed values are remove or keep

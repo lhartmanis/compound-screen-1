@@ -1,0 +1,62 @@
+configfile: "config.yaml"
+
+resource_scopes:
+    gpus="local"
+
+rule all:
+    input: "data/cleanup.done"
+
+rule count_conversions:
+    input:
+        config["conversion_count_settings"]["bam"]
+    params:
+        gtf=config["conversion_count_settings"]["gtf"],
+        name=config["conversion_count_settings"]["name"],
+        procs=config["conversion_count_settings"]["procs"],
+        cutoff=config["conversion_count_settings"]["cutoff"],
+        qual=config["conversion_count_settings"]["qual"],
+        sub=config["conversion_count_settings"]["sub"],
+        bc=config["conversion_count_settings"]["bc"],
+        pc_calc=config["conversion_count_settings"]["pc_calc"],
+        seq_layout=config["conversion_count_settings"]["seq_layout"]
+    output: 
+        touch("data/conversion_probs.done")
+    shell:
+        "python3 scripts/stranded_conversion_rates_and_probs.py -b {input} -g '{params.gtf}' -n '{params.name}' -t '{params.procs}' "
+        "-c '{params.cutoff}' -q '{params.qual}' -s '{params.sub}' -w '{params.bc}' --pc_calc {params.pc_calc} --seq_layout {params.seq_layout}"
+
+rule process_indata:
+    input:
+        "data/conversion_probs.done"
+    output:
+        touch("data/process_indata.done")
+    shell:
+        "python3 scripts/prepare_and_index_indata.py -d data"
+
+rule infer_pi_g:
+    input:
+        "data/process_indata.done"
+    resources:
+        gpu="/device:GPU:0" 
+    params:
+        n_procs = config["MCMC_runner_settings"]["num_procs"],
+        n_iter  = config["MCMC_runner_settings"]["num_iters"],
+        outfolder = config["MCMC_runner_settings"]["outfolder"],
+        max_files = config["MCMC_runner_settings"]["max_files"]
+
+    output:
+        touch("data/infer_pig.done")
+    shell:
+        "python3 scripts/runner_script.py -p {params.n_procs} -n {params.n_iter} -o {params.outfolder} -m {params.max_files}"
+
+rule collect_data_and_cleanup:
+    input:
+        "data/infer_pig.done"
+    params:
+        base_path = config["cleanup_settings"]["base_path"],
+        num_procs = config["cleanup_settings"]["num_procs"],
+        handle_folders = config["cleanup_settings"]["handle_folders"]
+    output:
+        touch("data/cleanup.done")
+    shell:
+        "python3 scripts/collect_data.py -d {params.base_path} -p {params.num_procs} -f {params.handle_folders}"
