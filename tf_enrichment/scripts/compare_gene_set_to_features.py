@@ -1,5 +1,4 @@
-### Script written by Daniel Ramsköld
-### daniel.ramskold@ki.se
+
 
 def addD(v,D):
     return v*(1-D)+D
@@ -210,6 +209,7 @@ class GeneTranslationError(KeyError):
         self.tested_cols = tested_cols
 
 def get_pvalue(distribution, test_against_factor=False, twotailed=True):
+    import numpy
     test_against = 1 if test_against_factor else 0
     p_1tail = numpy.mean([r<=test_against for r in distribution]+[0,1])
     if twotailed:
