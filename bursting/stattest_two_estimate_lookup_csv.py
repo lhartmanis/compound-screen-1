@@ -203,6 +203,9 @@ def one_gene(gene, df1_gene, df2_gene, freq_size_adj0_kdtree, param_lookup, perm
     import warnings, functools
     #warnings.filterwarnings("ignore")
     
+    global open_chance_name, close_chance_name, transcribe_chance_name
+    open_chance_name, close_chance_name, transcribe_chance_name = 'open_chance', 'close_chance', 'transcribe_chance'
+
     if freq_size_adj0_kdtree is None:
         freq_size_adj0_kdtree, param_lookup, interpolation_points = build_KD_tree(param_lookup, True, proxy_cols)
     
@@ -235,6 +238,7 @@ def hash_dataframe(params_to_zeros_table):
     return int(pandas.util.hash_pandas_object(params_to_zeros_table).sum())
 
 def build_KD_tree(params_to_zeros, from_one_gene, proxy_cols):
+    from scipy import spatial
     params_to_zeros_table = pandas.read_table(params_to_zeros).dropna().drop_duplicates(subset=proxy_cols, keep=False)
     freq_size_adj0_kdtree = spatial.KDTree(params_to_zeros_table[proxy_cols])
     param_lookup = list(zip(params_to_zeros_table[open_chance_name], params_to_zeros_table[close_chance_name], params_to_zeros_table[transcribe_chance_name], *(params_to_zeros_table[col] for col in proxy_cols)))
