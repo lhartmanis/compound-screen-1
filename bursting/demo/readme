@@ -1,4 +1,4 @@
-To run this, unstall python 3, and install dependency packages with:
+To run this, uninstall python 3, and install dependency packages with:
 python3 -m pip install pandas numpy scipy tqdm statsmodels
 Either use the existing .so file (already compiled for linux ubuntu) or compile it using:
 sudo apt install libflint-arb-dev  # or one of the other installation options at https://arblib.org/setup.html
