@@ -58,7 +58,8 @@ def expanding_permutation_test(in_func, a, b, controls=[100, 1000, 10000], proc=
     func = lambda V: math.log10(in_func(V))
     arr = [abs(func(a) - func(b))]
     if str(arr[0])=='nan': return float('nan'), float('nan')
-    c = a.append(b, ignore_index=True).values
+    #c = a.append(b, ignore_index=True).values
+    c = pandas.concat([a, b], ignore_index=True).values
     lena = len(a)
     for n_ctrl in controls:
         if n_ctrl in controls[3:] and proc > 1:
