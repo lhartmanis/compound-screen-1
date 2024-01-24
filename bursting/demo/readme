@@ -3,9 +3,9 @@ python3 -m pip install pandas numpy scipy tqdm statsmodels
 Either use the existing .so file (already compiled for linux ubuntu) or compile it using:
 sudo apt install libflint-arb-dev  # or one of the other installation options at https://arblib.org/setup.html
 make
-Then you can run the statistical test, gakes 1-2 minutes for the demo files:
+Then you can run the statistical test, takes 1-2 minutes for the demo files:
 python3 ../stattest_two_estimate_lookup_csv.py head10_newrna_1hSAHA_sc.csv.gz head10_newrna_1hnoSAHA_sc.csv.gz demo_output.txt -m ../table2proxkoff100_1h_7deg0.065.tsv -d 0.065 -t 1
 
-To use a different degradation rate and/or time, for example a degradation rate 0f 0.123/h and a time of 1.23 hours, run (takes 2-3 minutes):
+To use a different degradation rate and/or labeling time, for example a degradation rate 0f 0.123/h and a time of 1.23 hours, run (takes 2-3 minutes):
 python3 ../parameter_table_calc_from_prob_3proxies.py --open_rate 0.002 50 8 --transcribe_rate 1 200 4 --degrade_rate 0.123 0.123 1 --close_rate 100 100 1 --time 1.23 1.23 1 --proc 260 --prec 10000 --table_out demo_m_table.tsv
 Replace 8 with 73 and 4 with 38 for more accurate results (takes 20-30 minutes), and adjust --proc based on your CPUs. This file goes after -m in stattest_two_estimate_lookup_csv.py
