@@ -2,10 +2,6 @@
 
 This folder contains a computational pipeline that infers the fraction of new RNA per gene within a sample.
 
-Describe how to design the yaml and run the pipeline.
-Add a note on runtime and memory usage.
-
-
 The inference script runs in sequential batches to keep memory usage low. The number of genes to be inferred per batch can be set in the Snakemake configuration file. Processing data using smaller batches requires less memory usage and does not significantly alter the runtime.
 
 The pipeline has been benchmarked on a desktop computer with the following specs:
@@ -20,7 +16,7 @@ Driver Version: 470.57.02
 CUDA Version: 11.4 
 ```
 
-Processing data from a large-scale experiment with 10 million data points, running on 30 parallel processes and performing 10.000 MCMC sinulations per batch finished in 96 hours and each batch required 130 GB RAM. 
+Processing data from a large-scale experiment with 10 million data points, running on 30 parallel processes and performing 10.000 MCMC simulations per batch finished in 96 hours and each batch required 130 GB RAM. 
 
 ## Dependencies
 ```
